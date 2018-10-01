@@ -23,8 +23,21 @@ int_list = []
 
 int_list = np.random.randint(0, 100, 100)
 print(int_list)
+x = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
-plt.hist(int_list,  bins=10)
+n, bins, patches = plt.hist(int_list, edgecolor='yellow', bins=10, range=(0, 100))
+#plt.savefig('hist_' + graph_path)
+print(n)
+print(bins)
+print(patches)
+n2, bins2, patches2 = plt.hist(int_list, edgecolor='black', normed=True, cumulative=True, alpha=0.5, range=(0, 100))
+print(n2)
+print(n2*100)
+print(bins2)
+print(patches2)
+point = n2 * 10
+
+plt.plot(x, point, marker='o', color='red')
 plt.title("Histgram")
 plt.xlabel("x")
 plt.ylabel("y")
@@ -32,9 +45,19 @@ plt.ylabel("y")
 plt.savefig(graph_path)
 
 str_list = np.array(int_list, dtype=str)
+str_frequency = np.array(n, dtype=str)
+str_relative = np.array(n2, dtype=str)
+
 
 with open(text_path, mode='w') as f:
   for i in range(100):
     f.write(str_list[i] + ' ')
+  f.write('\n階級（度数） + \n')
+  for xx in range(10):
+    f.write(str_frequency[xx] + ',')  
+  f.write('\n累積相対度数\n')
+  for xx in range(10):
+    f.write(str_relative[xx] + ',')
+  
 
 print('finish!')
